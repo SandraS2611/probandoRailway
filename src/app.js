@@ -9,6 +9,7 @@ import { commentsRouter } from "./routes/comments.routes.js";
 import { usersRouter } from "./routes/users.routes.js";
 
 import { env } from "../settings/envs.js"; 
+import { startConnection } from "../settings/database.js";
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/users", usersRouter);
 app.use("/comments", commentsRouter);
 
 //! para que arranque el server
-app.listen(env.PORT, () => {
+app.listen(env.PORT, async () => {
+  await startConnection()
   console.log(`Server on port ${env.PORT}`);
 });

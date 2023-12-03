@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="containerComents">
+        <form action="/posts" method="post">
+            <label for="place">Lugares:</label>
+            <input type="text" name="place"><br />
+            <label for="comments">Comentarios:</label><br />
+            <textarea name="comments" cols="30" rows="10"></textarea><br />
+            <label for="">Imagen:</label>
+            <input type="url" name="image"><br />
+            <button onclick="enviar()">Enviar</button>
+        </form>
+    </div>
+    
+<script type="module" src="main.js"></script>
+
+</body>
+</html>
