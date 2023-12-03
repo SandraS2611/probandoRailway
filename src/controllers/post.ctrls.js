@@ -14,7 +14,7 @@ export const ctrlGetAllPosts = (req, res, next) => {
 export const ctrlCreatePost = (req, res, next) => {
   try {
     const { place, comments, image } = req.body;
-    postModel.create({ place, comments, image });
+     postModel.create({ place, comments, image });
     res.sendStatus(201);
   } catch (error) {
     next("No hay post");
