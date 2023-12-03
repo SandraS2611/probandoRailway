@@ -6,24 +6,27 @@ export const autheMiddleware = (req, res, next) => {
 
   const { authorization } = req.headers;
 
-  if (!authorization) res.sendStatus(401);
+  if (!authorization) {
 
-  const token = authorization;
+    res.sendStatus(401);
+  }
 
   try {
 
-    const { id } = jwt.verify(token, "secret");
+    const { userId } = jwt.verify(authorization, env-process.JWT_SECRET);
 
-    const user = userModel.findOne(id);
+    const user = userModel.findOne({ id: userId });
 
-    req.user = user // * agrega al req una nueva propiedad(usuario)
-
-    next();
-
-  } catch (error) {
-
-    console.log(error);
+    if (!user) {   // * agrega al req una nueva propiedad(usuario)
+     
+      console.log("No hay ususario");
 
     return res.sendStatus(401);
+    }
+      
+   req.user = user;
+   next()
+  } catch(error){
+    return res.sendStatus(402)
   }
 };

@@ -19,8 +19,12 @@ const UserSchema = new Schema({ //!define un esquema
     isAdmin: {
         type: Boolean,
        default: false,
-      } ,
-})
+      },
+     },
+       {
+        timestamps: true,
+      
+}) 
 
 
 const UserModel = model("User", UserSchema)

@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 
 
-export function ctrlGetUserById (req, res) {
+export async function ctrlGetUserById (req, res) {
 const { userId } = req.params
 
-const user = userModel.findOne({ id: userId })
+const user = await userModel.findOne({ id: userId })
 
 if (!user) {
   return res.sendStatus(404)
@@ -25,7 +25,7 @@ export async function ctrlCreateUser(req, res) {
  
   const token = jwt.sign({ userIdd: user.id }, env-process.JWT_SECRET);
 
-  res.status(201).json({ token })
+  res.status(201).json({ token, user })
 }
 
 
@@ -38,37 +38,9 @@ export async function ctrlLogin(req, res) {
   if (!user) return res.sendStatus(404)
  
   const token = jwt.sign({ userId: user.id }, env-process.JWT_SECRET);
- 
+  
   res.status(200).json({ token });
 }
-
-
-
-
-
-
-
-
-
-
-// export const ctrlLogin = async (req, res) => {
-  
-//   const { email, password } = req.body;
-  
-//   const user = userModel.findByEmail(email);
- 
-//   if (!user) return res.sendStatus(404)
-
-//   const isMatch = await bcrypt.compare(password, user.password)  
- 
-//   if (!isMatch) return res.sendStatus(404); // todo CONTRASEÑA ENCRIPTADA
- 
-//   const token = jwt.sign({ id: user.id }, "secret");
- 
-//   res.status(201).json({ token });
-// }
-
-
 
 
 export const ctrlRegister = async (req, res) => {
@@ -77,7 +49,7 @@ export const ctrlRegister = async (req, res) => {
   
     if (!newUser) return res.sendStatus(400);
   
-    const token = jwt.sign({ id: newUser.id }, "secret");
+    const token = jwt.sign({ id: newUser.id }, env.JWT_SECRE);
   
     res.status(201).json({ token });
   };

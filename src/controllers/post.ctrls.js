@@ -15,6 +15,9 @@ export const ctrlCreatePost = (req, res, next) => {
   try {
     const { place, comments, image } = req.body;
      postModel.create({ place, comments, image });
+     const user = req.user
+     if(!user.isAdmin) return res.sendStatus(401)
+     postModel.create({ place, comments, image })
     res.sendStatus(201);
   } catch (error) {
     next("No hay post");
